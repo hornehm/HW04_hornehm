@@ -1,17 +1,29 @@
-#include "cinder/app/AppBasic.h"
-#include "cinder/gl/gl.h"
+#include "HW04_hornehmApp.h"
 
-using namespace ci;
-using namespace ci::app;
-using namespace std;
 
-class HW04_hornehmApp : public AppBasic {
-  public:
-	void setup();
-	void mouseDown( MouseEvent event );	
-	void update();
-	void draw();
-};
+Entry* HW04_hornehmApp::readInFile(){
+	string line;
+	double x, y;
+	ifstream myFile("starbucks.csv");
+	int numItems;
+
+	while(myFile.is_open()){
+		getline(myFile, line, ',');
+		numItems++;
+	}
+	myFile.close();
+	Entry* arr = new Entry[numItems];
+	for(int i = 0; i < numItems; i++){
+		getline(myFile, line, ',');
+		arr[i].identifier = line;
+		getline(myFile, line, ',');
+		x = atof(line.c_str());
+		arr[i].x = x;
+		getline(myFile, line, ',');
+		arr[i].y = y;
+	}
+	return arr;
+}
 
 void HW04_hornehmApp::setup()
 {
