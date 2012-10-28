@@ -1,5 +1,12 @@
 #include "HW04_hornehmApp.h"
 
+node::node(){
+	left = NULL;
+	right = NULL;
+	data = NULL;
+}
+
+
 void HW04_hornehmApp::setup()
 {
 	numItems = 0;

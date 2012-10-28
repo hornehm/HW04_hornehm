@@ -5,13 +5,23 @@ using namespace std;
 /**
 *@author: Heather Horne
 *
-*I decided to take the harder route and try to build the binary tree.
-*
+*I decided to take to learn more from the homework and do a binary tree instead of the array
+*	that I had selected in Phase 1.
 *
 *
 *
 *
 */
+
+class node{
+public:
+	node* left;
+	node* right; 
+	Entry* data;
+
+	node();
+};
+
 class hornehmStarbucks : public Starbucks{
 public:
 	virtual void build(Entry* c, int n);
