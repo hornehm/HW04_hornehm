@@ -5,7 +5,7 @@ void HW04_hornehmApp::setup()
 	numItems = 0;
 	starbucks = readInFile();
 	quickSort(0, numItems-1);
-	printInOrder();
+	//printInOrder();
 }
 
 void HW04_hornehmApp::mouseDown( MouseEvent event )
@@ -93,16 +93,16 @@ void HW04_hornehmApp::swap(int index1, int index2){
 	starbucks[index2] = temp;
 
 }
-
+/**
 void HW04_hornehmApp::printInOrder(){
 	double test;
 	char s[20];
 	for(int i =0; i< numItems; i++){
 		test = starbucks[i].x;
-		cout << sprintf(s, "%f", test);
+		cout << test;
 	}
 	system("Pause");
 
 }
-
+**/
 CINDER_APP_BASIC( HW04_hornehmApp, RendererGl )
