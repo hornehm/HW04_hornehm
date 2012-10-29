@@ -1,9 +1,21 @@
 #include "hornehmStarbucks.h"
 
+node::node(Entry* e){
+	data = e;
+	left = NULL;
+	right = NULL;
+}
+
+node::node(){
+	data = NULL;
+	left = NULL;
+	right = NULL;
+}
+
 node* hornehmStarbucks::insert(Entry* e, node* r){
 
 	if(r == NULL){
-		return new node();
+		return new node(e);
 	}
 	if(abs(e->x - r->data->x)<= 0.00001 && abs(e->y - r->data->y)<= 0.00001){
 		return r;
@@ -18,12 +30,10 @@ node* hornehmStarbucks::insert(Entry* e, node* r){
 
 }
 
+
 void hornehmStarbucks::build(Entry* e, int n){
 
-	root = new node();
-	root->data->x = e[n/2].x;
-	root->data->y = e[n/2].y;
-	root->data->identifier = e[n/2].identifier;
+	root = new node(&e[n/2]);
 	
 	for(int i = 0; i < n; i++){
 		insert(&e[i], root);

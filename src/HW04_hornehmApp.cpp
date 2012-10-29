@@ -5,7 +5,9 @@ void HW04_hornehmApp::setup()
 	numItems = 0;
 	starbucks = readInFile();
 	quickSort(0, numItems-1);
-	
+	hornehmStarbucks* stores = new hornehmStarbucks;
+	stores->build(starbucks, numItems);
+	printInOrder(stores->root);
 }
 
 void HW04_hornehmApp::mouseDown( MouseEvent event )
@@ -93,18 +95,18 @@ void HW04_hornehmApp::swap(int index1, int index2){
 	starbucks[index2] = temp;
 
 }
-/**
-void HW04_hornehmApp::printInOrder(){
-	double test;
-	char s[20];
-	for(int i =0; i< numItems; i++){
-		test = starbucks[i].x;
-		cout << test;
+
+void HW04_hornehmApp::printInOrder(node* r){{
+	if(r==NULL){
+	return;
 	}
-	system("Pause");
+	printInOrder(r->left);
+	console() << r->data->x << std::endl;
+	printInOrder(r->right);
+}
 
 }
-**/
+
 
 void HW04_hornehmApp::delEntries(){
 }

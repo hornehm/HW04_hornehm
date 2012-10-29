@@ -3,6 +3,7 @@
 #include "hornehmStarbucks.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <stdio.h>
 
@@ -20,7 +21,7 @@ class HW04_hornehmApp : public AppBasic {
 	void quickSort(int start, int end);
 	void swap(int index1, int index2);
 	void delEntries();
-	void printInOrder();
+	void printInOrder(node* r);
 
 private:
 	Entry* starbucks;

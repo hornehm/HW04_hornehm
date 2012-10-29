@@ -1,4 +1,9 @@
 #include "Starbucks.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
+
 using namespace std;
 
 
@@ -18,6 +23,9 @@ public:
 	node* left;
 	node* right; 
 	Entry* data;
+
+	node(Entry* e);
+	node();
 };
 
 class hornehmStarbucks : public Starbucks{
@@ -25,6 +33,6 @@ public:
 	node* insert(Entry* e, node* r);
 	virtual void build(Entry* e, int n);
 	virtual Entry* getNearest(double x, double y);
-private:
+	
 	node* root;
 };
