@@ -11,6 +11,20 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
+
+/*
+*@author: Heather Horne
+*
+*Homework 4 app for phase 2
+*
+*For this phase, I decided to try the binary tree, however, I did not implement
+* correctly. Since I quicksorted the array and then imported entries into the tree 
+* in that order, I am pretty sure the left and right pointers from the node look 
+* like lists.
+*
+*Everything for this phase is in the setup() method
+*
+*/
 class HW04_hornehmApp : public AppBasic {
   public:
 	void setup();
@@ -24,7 +38,7 @@ class HW04_hornehmApp : public AppBasic {
 	void printInOrder(node* r);
 
 private:
-	Entry* starbucks;
-	int numItems;
-	hornehmStarbucks stores;
+	Entry* starbucks;//entry array
+	int numItems;//number of items in the array
+	hornehmStarbucks stores;//used to build tree
 };
