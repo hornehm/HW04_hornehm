@@ -9,7 +9,7 @@ void HW04_hornehmApp::setup()
 	stores->build(starbucks, numItems);//build binary search tree
 	//printInOrder(stores->root);
 	delEntries();//delete array of entries
-	console() << (stores->getNearest(0.778605645,0.59846104))->identifier << std::endl;//find the closest
+	console() << (stores->getNearest(0.5645,0.59846104))->identifier << std::endl;//find the closest
 }
 
 void HW04_hornehmApp::mouseDown( MouseEvent event )

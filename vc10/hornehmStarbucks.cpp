@@ -49,6 +49,11 @@ node* hornehmStarbucks::insert(Entry* e, node* r){
 * the array.
 *
 *As suggested, I first copy the array and point to it to avoid dangling pointers.
+*
+*I realize this isn't the best way of building the binary tree. I should have scrambled the entries 
+* after quicksorting to find the median. Since I use a for-loop to add the entries, I am basically 
+* creating a list from the right and left pointers. However, since I end up searching the whole tree 
+* in getNearest, it really does not affect it.
 */
 void hornehmStarbucks::build(Entry* c, int n){
 	Entry* copiedArray = new Entry[n]; 
@@ -58,7 +63,10 @@ void hornehmStarbucks::build(Entry* c, int n){
 		copiedArray[i].identifier = c[i].identifier;
 	}
 	c = copiedArray; //point to copied array
-	root = new node(&c[n/2]);
+	root = new node(&c[n/2]);//make the root the median
+
+	//Use for-loop to add items. As I stated above, this was not the best way to build 
+	// my binary tree, but I have run out of time.
 	for(int i = 0; i < n; i++){
 		insert(&c[i], root);
 	}
