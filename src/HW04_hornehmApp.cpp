@@ -7,7 +7,9 @@ void HW04_hornehmApp::setup()
 	quickSort(0, numItems-1);
 	hornehmStarbucks* stores = new hornehmStarbucks;
 	stores->build(starbucks, numItems);
-	printInOrder(stores->root);
+	//printInOrder(stores->root);
+
+	console() << (stores->getNearest(0.768605645,0.59846104))->identifier << std::endl;
 }
 
 void HW04_hornehmApp::mouseDown( MouseEvent event )

@@ -42,6 +42,30 @@ void hornehmStarbucks::build(Entry* e, int n){
 }
 
 Entry* hornehmStarbucks::getNearest(double x, double y){
-	Entry* e = new Entry;
-	return e;
+	return find(x, y, root, root);
+}
+
+double hornehmStarbucks::distance(double x2, double y2, double x, double y){
+	return sqrt(((x2-x)*(x2-x))+((y2-y)*(y2-y)));
+}
+
+Entry* hornehmStarbucks::find(double x, double y, node* current, node* closest){
+	if(closest == NULL){
+		closest->data = current->data;
+	}
+	if(current==NULL){
+		return closest->data;
+	}
+
+	double d = distance(x, y, current->data->x, current->data->y);
+	double distanceClosest = distance(x,y, closest->data->x, closest->data->y);
+	
+	if(d <= distanceClosest){
+		closest->data = current->data;
+	}
+	find(x, y, current->left, closest);
+	find(x, y, current->right, closest);
+
+	return closest->data;
+
 }

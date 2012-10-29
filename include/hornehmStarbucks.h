@@ -33,6 +33,8 @@ public:
 	node* insert(Entry* e, node* r);
 	virtual void build(Entry* e, int n);
 	virtual Entry* getNearest(double x, double y);
-	
+	double distance(double x, double y, double x2, double y2);
+	Entry* find(double x, double y, node* current, node* closest);
 	node* root;
+	
 };
