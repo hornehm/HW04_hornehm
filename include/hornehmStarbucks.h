@@ -18,12 +18,13 @@ public:
 	node* left;
 	node* right; 
 	Entry* data;
-
-	node();
 };
 
 class hornehmStarbucks : public Starbucks{
 public:
-	virtual void build(Entry* c, int n);
+	node* insert(Entry* e, node* r);
+	virtual void build(Entry* e, int n);
 	virtual Entry* getNearest(double x, double y);
+private:
+	node* root;
 };

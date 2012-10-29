@@ -19,9 +19,11 @@ class HW04_hornehmApp : public AppBasic {
 	Entry* readInFile();
 	void quickSort(int start, int end);
 	void swap(int index1, int index2);
-	//void printInOrder();
+	void delEntries();
+	void printInOrder();
 
 private:
 	Entry* starbucks;
 	int numItems;
+	hornehmStarbucks stores;
 };

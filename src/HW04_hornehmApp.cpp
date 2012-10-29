@@ -1,18 +1,11 @@
 #include "HW04_hornehmApp.h"
 
-node::node(){
-	left = NULL;
-	right = NULL;
-	data = NULL;
-}
-
-
 void HW04_hornehmApp::setup()
 {
 	numItems = 0;
 	starbucks = readInFile();
 	quickSort(0, numItems-1);
-	//printInOrder();
+	
 }
 
 void HW04_hornehmApp::mouseDown( MouseEvent event )
@@ -112,4 +105,9 @@ void HW04_hornehmApp::printInOrder(){
 
 }
 **/
+
+void HW04_hornehmApp::delEntries(){
+}
+
+
 CINDER_APP_BASIC( HW04_hornehmApp, RendererGl )
