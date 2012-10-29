@@ -32,11 +32,16 @@ node* hornehmStarbucks::insert(Entry* e, node* r){
 
 
 void hornehmStarbucks::build(Entry* e, int n){
-
-	root = new node(&e[n/2]);
-	
+	Entry* copiedArray = new Entry[n];
 	for(int i = 0; i < n; i++){
-		insert(&e[i], root);
+		copiedArray[i].x = e[i].x;
+		copiedArray[i].y = e[i].y;
+		copiedArray[i].identifier = e[i].identifier;
+	}
+	e = copiedArray;
+	root = new node(&copiedArray[n/2]);
+	for(int i = 0; i < n; i++){
+		insert(&copiedArray[i], root);
 	}
 
 }

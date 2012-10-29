@@ -8,8 +8,8 @@ void HW04_hornehmApp::setup()
 	hornehmStarbucks* stores = new hornehmStarbucks;
 	stores->build(starbucks, numItems);
 	//printInOrder(stores->root);
-
-	console() << (stores->getNearest(0.768605645,0.59846104))->identifier << std::endl;
+	delEntries();
+	console() << (stores->getNearest(0.778605645,0.59846104))->identifier << std::endl;
 }
 
 void HW04_hornehmApp::mouseDown( MouseEvent event )
@@ -111,6 +111,7 @@ void HW04_hornehmApp::printInOrder(node* r){{
 
 
 void HW04_hornehmApp::delEntries(){
+	delete [] starbucks;
 }
 
 
