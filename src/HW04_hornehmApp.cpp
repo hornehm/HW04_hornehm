@@ -137,6 +137,11 @@ void HW04_hornehmApp::drawMap(uint8_t* pixels, node* r){
 	drawMap(pixels, r->left);
 	drawRectangle(pixels, (int)(r->data->x*appWidth), (int)(r->data->y*appHeight), 3, 3, Color8u(rand()%256, rand()%256, rand()%256));
 	drawMap(pixels, r->right);
+	nearestMap(pixels);
+}
+
+void HW04_hornehmApp::nearestMap(uint8_t* pixels){
+	
 }
 
 int HW04_hornehmApp::reflectY(int y){
@@ -149,10 +154,23 @@ int HW04_hornehmApp::reflectY(int y){
 	return y;
 }
 
+void HW04_hornehmApp::keyDown(KeyEvent event){
+	if(event.getChar()=='1'){
+		nearestMap(dataArray);
+	}
+}
 
+void HW04_hornehmApp::prepareSettings(Settings* settings){
+	(*settings).setWindowSize(appWidth, appHeight);
+	(*settings).setResizable(false);
+}
 
 void HW04_hornehmApp::setup()
 {
+	Surface surf(loadImage("../resources/usa.png"));
+	map = gl::Texture(surf);
+	show = false;
+
 	numItems = 0;
 	starbucks = readInFile();//reads in csv file into entry arrays
 	quickSort(0, numItems-1);//quicksort on the array to find median
@@ -163,6 +181,8 @@ void HW04_hornehmApp::setup()
 	console() << (stores->getNearest(0.5645,0.59846104))->identifier << std::endl;//find the closest
 
 	mySurface = new Surface(textureSize, textureSize, false);
+	dataArray = (*mySurface).getData();
+	drawMap(dataArray, stores->root);
 }
 
 void HW04_hornehmApp::mouseDown( MouseEvent event )
@@ -174,20 +194,28 @@ void HW04_hornehmApp::mouseDown( MouseEvent event )
 		Entry* tmp = stores->getNearest(x/((double)appWidth),((double)y)/((double)appHeight));
 		drawRectangle(dataArray, (int)(tmp->x*appWidth), (int)(tmp->y*appHeight), 5, 5, Color8u(0, 0, 255));
 	}
+	if(event.isRightDown()){
+		show =!show;
+	}
 	
 }
+
 
 void HW04_hornehmApp::update()
 {
 	dataArray = (*mySurface).getData();
-	drawMap(dataArray, stores->root);
+	
 }
 
 void HW04_hornehmApp::draw()
 {
-	
+	if(show){
+		gl::draw(map, getWindowBounds());
+	}
+	else{
 	gl::clear(Color(0, 0, 0));
 	gl::draw(*mySurface);
+	}
 }
 
 

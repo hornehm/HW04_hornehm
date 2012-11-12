@@ -1,6 +1,7 @@
 #include "cinder/app/AppBasic.h"
 #include "cinder/gl/gl.h"
 #include "cinder/gl/Texture.h"
+#include "cinder/ImageIo.h"
 #include "hornehmStarbucks.h"
 #include <iostream>
 #include <fstream>
@@ -32,6 +33,7 @@ class HW04_hornehmApp : public AppBasic {
 	void mouseDown( MouseEvent event );	
 	void update();
 	void draw();
+	void prepareSettings(Settings* settings);
 	Entry* readInFile();
 	void quickSort(int start, int end);
 	void swap(int index1, int index2);
@@ -39,6 +41,8 @@ class HW04_hornehmApp : public AppBasic {
 	void printInOrder(node* r);
 	void drawMap(uint8_t* pixels, node* r);
 	void drawRectangle(uint8_t* pixels, int x, int y, int width, int height, Color8u color);
+	void nearestMap(uint8_t* pixels);
+	void keyDown( KeyEvent event);
 	int reflectY(int y);
 	
 
@@ -47,6 +51,9 @@ private:
 	Surface* mySurface;
 	uint8_t* dataArray;
 
+	gl::Texture map;
+	bool show;
+
 	static const int appWidth = 600;
 	static const int appHeight = 400;
 	static const int textureSize = 1024;
@@ -54,4 +61,6 @@ private:
 	Entry* starbucks;//entry array
 	int numItems;//number of items in the array
 	hornehmStarbucks* stores;//used to build tree
+
+	
 };
