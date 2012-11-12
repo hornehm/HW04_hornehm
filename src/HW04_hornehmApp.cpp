@@ -124,9 +124,9 @@ void HW04_hornehmApp::drawRectangle(uint8_t* pixels, int x, int y, int width, in
 	y = reflectY(y);
 	for(int i = y; i<= y+height; i++){
 		for(int j = x; j<=x+width; j++){
-			pixels[3*(j+i*textureSize)] = 0;
-			pixels[3*(j+i*textureSize)+1] = 255;
-			pixels[3*(j+i*textureSize)+2] = 0;
+			pixels[3*(j+i*textureSize)] = color.r;
+			pixels[3*(j+i*textureSize)+1] = color.g;
+			pixels[3*(j+i*textureSize)+2] = color.b;
 		}
 	}
 }
@@ -135,7 +135,7 @@ void HW04_hornehmApp::drawMap(uint8_t* pixels, node* r){
 	if (r == NULL)
 		return;
 	drawMap(pixels, r->left);
-	drawRectangle(pixels, (int)(r->data->x*appWidth), (int)(r->data->y*appHeight), 3, 3, Color8u(0, 255, 0));
+	drawRectangle(pixels, (int)(r->data->x*appWidth), (int)(r->data->y*appHeight), 3, 3, Color8u(255, 0, 0));
 	drawMap(pixels, r->right);
 }
 
@@ -165,11 +165,19 @@ void HW04_hornehmApp::setup()
 
 void HW04_hornehmApp::mouseDown( MouseEvent event )
 {
+	if(event.isLeftDown()){
+		double x = (double)event.getX();
+		int y = event.getY();
+		y = reflectY(y);
+		Entry* tmp = stores->getNearest(x/((double)appWidth),((double)y)/((double)appHeight));
+		drawRectangle(dataArray, (int)(tmp->x*appWidth), (int)(tmp->y*appHeight), 5, 5, Color8u(0, 0, 255));
+	}
+	
 }
 
 void HW04_hornehmApp::update()
 {
-	uint8_t* dataArray = (*mySurface).getData();
+	dataArray = (*mySurface).getData();
 	drawMap(dataArray, stores->root);
 }
 

@@ -44,6 +44,7 @@ class HW04_hornehmApp : public AppBasic {
 private:
 
 	Surface* mySurface;
+	uint8_t* dataArray;
 
 	static const int appWidth = 600;
 	static const int appHeight = 400;
