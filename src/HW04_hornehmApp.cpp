@@ -135,7 +135,7 @@ void HW04_hornehmApp::drawMap(uint8_t* pixels, node* r){
 	if (r == NULL)
 		return;
 	drawMap(pixels, r->left);
-	drawRectangle(pixels, (int)(r->data->x*appWidth), (int)(r->data->y*appHeight), 3, 3, Color8u(255, 0, 0));
+	drawRectangle(pixels, (int)(r->data->x*appWidth), (int)(r->data->y*appHeight), 3, 3, Color8u(rand()%256, rand()%256, rand()%256));
 	drawMap(pixels, r->right);
 }
 
@@ -148,6 +148,8 @@ int HW04_hornehmApp::reflectY(int y){
 	}
 	return y;
 }
+
+
 
 void HW04_hornehmApp::setup()
 {
@@ -183,6 +185,8 @@ void HW04_hornehmApp::update()
 
 void HW04_hornehmApp::draw()
 {
+	
+	gl::clear(Color(0, 0, 0));
 	gl::draw(*mySurface);
 }
 
