@@ -1,32 +1,4 @@
 #include "HW04_hornehmApp.h"
-
-void HW04_hornehmApp::setup()
-{
-	numItems = 0;
-	starbucks = readInFile();//reads in csv file into entry arrays
-	quickSort(0, numItems-1);//quicksort on the array to find median
-	hornehmStarbucks* stores = new hornehmStarbucks;
-	stores->build(starbucks, numItems);//build binary search tree
-	//printInOrder(stores->root);
-	delEntries();//delete array of entries
-	console() << (stores->getNearest(0.5645,0.59846104))->identifier << std::endl;//find the closest
-}
-
-void HW04_hornehmApp::mouseDown( MouseEvent event )
-{
-}
-
-void HW04_hornehmApp::update()
-{
-	
-}
-
-void HW04_hornehmApp::draw()
-{
-	// clear out the window with black
-	gl::clear( Color( 0, 0, 0 ) ); 
-}
-
 /*
 *Reads in Starbucks_2006.csv file into an array of entries. Returns pointer to the
 *	array of entries.
@@ -146,6 +118,53 @@ void HW04_hornehmApp::printInOrder(node* r){{
 */
 void HW04_hornehmApp::delEntries(){
 	delete [] starbucks;
+}
+
+void HW04_hornehmApp::drawRectangle(uint8_t* pixels, int x, int y, int width, int height, Color8u color){
+	for(int i = y; i<= y+height; i++){
+		for(int j = x; j<=x+width; j++){
+			pixels[3*(j+i*textureSize)] = 0;
+			pixels[3*(j+i*textureSize)+1] = 255;
+			pixels[3*(j+i*textureSize)+2] = 0;
+		}
+	}
+}
+
+void HW04_hornehmApp::drawMap(uint8_t* pixels, node* r){
+	if (r == NULL)
+		return;
+	drawMap(pixels, r->left);
+	drawRectangle(pixels, (int)(r->data->x*appWidth), (int)(r->data->y*appHeight), 1, 1, Color8u(0, 255, 0));
+	drawMap(pixels, r->right);
+}
+
+void HW04_hornehmApp::setup()
+{
+	numItems = 0;
+	starbucks = readInFile();//reads in csv file into entry arrays
+	quickSort(0, numItems-1);//quicksort on the array to find median
+	stores = new hornehmStarbucks;
+	stores->build(starbucks, numItems);//build binary search tree
+	//printInOrder(stores->root);
+	delEntries();//delete array of entries
+	console() << (stores->getNearest(0.5645,0.59846104))->identifier << std::endl;//find the closest
+
+	mySurface = new Surface(textureSize, textureSize, false);
+}
+
+void HW04_hornehmApp::mouseDown( MouseEvent event )
+{
+}
+
+void HW04_hornehmApp::update()
+{
+	uint8_t* dataArray = (*mySurface).getData();
+	drawMap(dataArray, stores->root);
+}
+
+void HW04_hornehmApp::draw()
+{
+	gl::draw(*mySurface);
 }
 
 
