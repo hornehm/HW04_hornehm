@@ -45,8 +45,8 @@ private:
 
 	Surface* mySurface;
 
-	static const int appWidth = 800;
-	static const int appHeight = 600;
+	static const int appWidth = 600;
+	static const int appHeight = 400;
 	static const int textureSize = 1024;
 
 	Entry* starbucks;//entry array
