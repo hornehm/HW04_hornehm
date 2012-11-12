@@ -39,6 +39,7 @@ class HW04_hornehmApp : public AppBasic {
 	void printInOrder(node* r);
 	void drawMap(uint8_t* pixels, node* r);
 	void drawRectangle(uint8_t* pixels, int x, int y, int width, int height, Color8u color);
+	int reflectY(int y);
 
 private:
 

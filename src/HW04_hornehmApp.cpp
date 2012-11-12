@@ -121,6 +121,7 @@ void HW04_hornehmApp::delEntries(){
 }
 
 void HW04_hornehmApp::drawRectangle(uint8_t* pixels, int x, int y, int width, int height, Color8u color){
+	y = reflectY(y);
 	for(int i = y; i<= y+height; i++){
 		for(int j = x; j<=x+width; j++){
 			pixels[3*(j+i*textureSize)] = 0;
@@ -134,8 +135,18 @@ void HW04_hornehmApp::drawMap(uint8_t* pixels, node* r){
 	if (r == NULL)
 		return;
 	drawMap(pixels, r->left);
-	drawRectangle(pixels, (int)(r->data->x*appWidth), (int)(r->data->y*appHeight), 1, 1, Color8u(0, 255, 0));
+	drawRectangle(pixels, (int)(r->data->x*appWidth), (int)(r->data->y*appHeight), 3, 3, Color8u(0, 255, 0));
 	drawMap(pixels, r->right);
+}
+
+int HW04_hornehmApp::reflectY(int y){
+	if(y<appHeight/2){
+		y = y+2*(abs(y-appHeight/2));
+	}
+	else if(y >appHeight/2){
+		y = y-2*(abs(y-appHeight/2));
+	}
+	return y;
 }
 
 void HW04_hornehmApp::setup()
