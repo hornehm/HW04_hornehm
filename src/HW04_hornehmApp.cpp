@@ -95,6 +95,12 @@ CensusEntry* HW04_hornehmApp::readInCensus(string filename){
 		numItems++;
 	}	
 	myFile.close();
+	if(filename == "Census_2010.csv"){
+		numItems2010 = numItems;
+	}
+	else{
+		numItems2000 = numItems;
+	}
 	return test;
 }
 
@@ -189,7 +195,13 @@ void HW04_hornehmApp::drawMap(uint8_t* pixels, node* r){
 	drawMap(pixels, r->left);
 	drawRectangle(pixels, (int)(r->data->x*appWidth), (int)(r->data->y*appHeight), 3, 3, Color8u(rand()%256, rand()%256, rand()%256));
 	drawMap(pixels, r->right);
-	nearestMap(pixels);
+	//nearestMap(pixels);
+}
+
+void HW04_hornehmApp::drawPopulationMap(uint8_t* pixels, CensusEntry* arr, int items){
+	for(int i = 0; i<items; i++){
+		drawRectangle(pixels, (int)(arr[i].x*appWidth), (int)(arr[i].y*appHeight), 1, 1, Color8u(0, 0, 255));
+	}
 }
 
 void HW04_hornehmApp::nearestMap(uint8_t* pixels){
@@ -223,17 +235,20 @@ void HW04_hornehmApp::setup()
 	map = gl::Texture(surf);
 	show = false;
 
-	numItems = 0;
+	numItems2000 = numItems2010 = numItems = 0;
+	census2000 = readInCensus("Census_2000.csv");
+	census2010 = readInCensus("Census_2010.csv");
+	
 	starbucks = readInFile();//reads in csv file into entry arrays
 	quickSort(0, numItems-1);//quicksort on the array to find median
 	stores = new hornehmStarbucks;
 	stores->build(starbucks, numItems);//build binary search tree
 	//printInOrder(stores->root);
 	delEntries();//delete array of entries
-	console() << (stores->getNearest(0.5645,0.59846104))->identifier << std::endl;//find the closest
-
+	
 	mySurface = new Surface(textureSize, textureSize, false);
 	dataArray = (*mySurface).getData();
+	drawPopulationMap(dataArray, census2000, numItems2000);
 	drawMap(dataArray, stores->root);
 }
 

@@ -46,6 +46,7 @@ class HW04_hornehmApp : public AppBasic {
 	void delEntries();
 	void printInOrder(node* r);
 	void drawMap(uint8_t* pixels, node* r);
+	void drawPopulationMap(uint8_t* pixels, CensusEntry* arr, int items);
 	void drawRectangle(uint8_t* pixels, int x, int y, int width, int height, Color8u color);
 	void nearestMap(uint8_t* pixels);
 	void keyDown( KeyEvent event);
@@ -57,6 +58,9 @@ private:
 	Surface* mySurface;
 	uint8_t* dataArray;
 
+	CensusEntry* census2000;
+	CensusEntry* census2010;
+
 	gl::Texture map;
 	bool show;
 
@@ -65,7 +69,7 @@ private:
 	static const int textureSize = 1024;
 
 	Entry* starbucks;//entry array
-	int numItems;//number of items in the array
+	int numItems, numItems2010, numItems2000;//number of items in the array
 	hornehmStarbucks* stores;//used to build tree
 
 	
