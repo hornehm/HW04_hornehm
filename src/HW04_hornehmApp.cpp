@@ -46,6 +46,58 @@ Entry* HW04_hornehmApp::readInFile(){
 	return test;
 }
 
+CensusEntry* HW04_hornehmApp::readInCensus(string filename){
+	int pop;
+	double x, y;
+	string line;
+	ifstream myFile;
+
+	myFile.open(filename);
+
+	//Finds number of items in the file.
+	while(myFile.good()){
+		getline(myFile, line, ',');
+		getline(myFile, line, ',');
+		getline(myFile, line, ',');
+		getline(myFile, line, ',');
+		myFile >> pop;
+		myFile.get();
+		myFile >> x;
+		myFile.get();
+		myFile >> y;
+		myFile.get();
+		numItems++;
+	}
+
+	//Go back to the beginning of the file
+	myFile.clear();
+	myFile.seekg(0);
+
+	//Create array of entries
+	CensusEntry* test = new CensusEntry[numItems];
+	numItems = 0;
+
+	//Do the same to count items, but this time input
+	while(myFile.good()){
+		getline(myFile, line, ',');
+		getline(myFile, line, ',');
+		getline(myFile, line, ',');
+		getline(myFile, line, ',');
+		myFile >> pop;
+		myFile.get();
+		myFile >> x;
+		myFile.get();
+		myFile >> y;
+		myFile.get();
+		test[numItems].population = pop;
+		test[numItems].x = x;
+		test[numItems].y = y;
+		numItems++;
+	}	
+	myFile.close();
+	return test;
+}
+
 /**
 *This was implemented from www.myctutorials.com/articles/sorting/quicksort
 *

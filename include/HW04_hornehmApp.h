@@ -13,7 +13,12 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-
+class CensusEntry{
+public:
+	int population;
+	double x;
+	double y;
+};
 /*
 *@author: Heather Horne
 *
@@ -35,6 +40,7 @@ class HW04_hornehmApp : public AppBasic {
 	void draw();
 	void prepareSettings(Settings* settings);
 	Entry* readInFile();
+	CensusEntry* readInCensus(string filename);
 	void quickSort(int start, int end);
 	void swap(int index1, int index2);
 	void delEntries();
@@ -64,3 +70,4 @@ private:
 
 	
 };
+
