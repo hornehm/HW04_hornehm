@@ -193,14 +193,25 @@ void HW04_hornehmApp::drawMap(uint8_t* pixels, node* r){
 	if (r == NULL)
 		return;
 	drawMap(pixels, r->left);
-	drawRectangle(pixels, (int)(r->data->x*appWidth), (int)(r->data->y*appHeight), 3, 3, Color8u(rand()%256, rand()%256, rand()%256));
+	drawRectangle(pixels, (int)(r->data->x*appWidth), (int)(r->data->y*appHeight), 3, 3, Color8u(255,255,0));
 	drawMap(pixels, r->right);
 	//nearestMap(pixels);
 }
 
-void HW04_hornehmApp::drawPopulationMap(uint8_t* pixels, CensusEntry* arr, int items){
+void HW04_hornehmApp::drawPopulationMap(uint8_t* pixels, CensusEntry* arr, int items, Color8u color){
 	for(int i = 0; i<items; i++){
-		drawRectangle(pixels, (int)(arr[i].x*appWidth), (int)(arr[i].y*appHeight), 1, 1, Color8u(0, 0, 255));
+		if(arr[i].population < 1000){
+			color = Color8u(34,139,34);
+			drawRectangle(pixels, (int)(arr[i].x*appWidth), (int)(arr[i].y*appHeight), 1, 1, color);
+		}
+		else if(arr[i].population < 5000){
+			color = Color8u(50,205,50);
+			drawRectangle(pixels, (int)(arr[i].x*appWidth), (int)(arr[i].y*appHeight), 1, 1, color);
+		}
+		else{
+			color = Color8u(173,255,47);
+			drawRectangle(pixels, (int)(arr[i].x*appWidth), (int)(arr[i].y*appHeight), 1, 1, color);
+		}
 	}
 }
 
@@ -222,6 +233,9 @@ void HW04_hornehmApp::keyDown(KeyEvent event){
 	if(event.getChar()=='1'){
 		nearestMap(dataArray);
 	}
+	if(event.KEY_ESCAPE){
+		showMessage = false;
+	}
 }
 
 void HW04_hornehmApp::prepareSettings(Settings* settings){
@@ -233,11 +247,15 @@ void HW04_hornehmApp::setup()
 {
 	Surface surf(loadImage("../resources/usa.png"));
 	map = gl::Texture(surf);
-	show = false;
+	showMessage = false;
+	showMap = false;
+
+	f = Font( "Arial", 24 );
+	textFont = gl::TextureFont::create(f);
 
 	numItems2000 = numItems2010 = numItems = 0;
-	census2000 = readInCensus("Census_2000.csv");
-	census2010 = readInCensus("Census_2010.csv");
+	//census2000 = readInCensus("Census_2000.csv");
+	//census2010 = readInCensus("Census_2010.csv");
 	
 	starbucks = readInFile();//reads in csv file into entry arrays
 	quickSort(0, numItems-1);//quicksort on the array to find median
@@ -248,7 +266,8 @@ void HW04_hornehmApp::setup()
 	
 	mySurface = new Surface(textureSize, textureSize, false);
 	dataArray = (*mySurface).getData();
-	drawPopulationMap(dataArray, census2000, numItems2000);
+	//drawPopulationMap(dataArray, census2000, numItems2000, Color8u(0, 255, 0));
+	//drawPopulationMap(dataArray, census2010, numItems2010, Color8u(255, 0, 0));
 	drawMap(dataArray, stores->root);
 }
 
@@ -260,9 +279,12 @@ void HW04_hornehmApp::mouseDown( MouseEvent event )
 		y = reflectY(y);
 		Entry* tmp = stores->getNearest(x/((double)appWidth),((double)y)/((double)appHeight));
 		drawRectangle(dataArray, (int)(tmp->x*appWidth), (int)(tmp->y*appHeight), 5, 5, Color8u(0, 0, 255));
+		message = tmp->identifier;
+		showMessage = true;
+		
 	}
 	if(event.isRightDown()){
-		show =!show;
+		showMap =!showMap;
 	}
 	
 }
@@ -276,13 +298,26 @@ void HW04_hornehmApp::update()
 
 void HW04_hornehmApp::draw()
 {
-	if(show){
+	if(showMap){
 		gl::draw(map, getWindowBounds());
 	}
-	else{
-	gl::clear(Color(0, 0, 0));
-	gl::draw(*mySurface);
+	else{ //if(showMessage){
+		gl::clear(Color(0, 0, 0));
+		gl::draw(*mySurface);
+		gl::color(Color8u(255, 255, 255));
+		std::string str("Store Location: " + message);
+		gl::color(Color8u(0, 0, 0));
+		gl::enableAlphaBlending();
+		gl::color(Color(255, 50, 50));
+		Rectf boundsRect(40, textFont->getAscent() + 350, getWindowWidth() - 40, 
+				getWindowHeight() - 40);
+		textFont ->drawStringWrapped(str, boundsRect);
+		gl::color(Color8u(255, 255, 255));
 	}
+	//else{
+	//gl::clear(Color(0, 0, 0));
+	//gl::draw(*mySurface);
+	//}
 }
 
 
