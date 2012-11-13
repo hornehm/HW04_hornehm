@@ -45,7 +45,6 @@ class HW04_hornehmApp : public AppBasic {
 	void quickSort(int start, int end);
 	void swap(int index1, int index2);
 	void delEntries();
-	void printInOrder(node* r);
 	void drawMap(uint8_t* pixels, node* r);
 	void drawPopulationMap(uint8_t* pixels, CensusEntry* arr, int items, Color8u color);
 	void drawRectangle(uint8_t* pixels, int x, int y, int width, int height, Color8u color);

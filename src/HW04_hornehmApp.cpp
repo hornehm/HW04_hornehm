@@ -157,19 +157,6 @@ void HW04_hornehmApp::swap(int index1, int index2){
 
 }
 
-/*
-*Prints the order of the tree 
-*/
-void HW04_hornehmApp::printInOrder(node* r){{
-	if(r==NULL){
-	return;
-	}
-	printInOrder(r->left);
-	console() << r->data->x << std::endl;
-	printInOrder(r->right);
-}
-
-}
 
 /*
 *Deletes the array of entries
@@ -254,19 +241,18 @@ void HW04_hornehmApp::setup()
 	textFont = gl::TextureFont::create(f);
 
 	numItems2000 = numItems2010 = numItems = 0;
-	//census2000 = readInCensus("Census_2000.csv");
+	census2000 = readInCensus("Census_2000.csv");
 	//census2010 = readInCensus("Census_2010.csv");
 	
 	starbucks = readInFile();//reads in csv file into entry arrays
 	quickSort(0, numItems-1);//quicksort on the array to find median
 	stores = new hornehmStarbucks;
 	stores->build(starbucks, numItems);//build binary search tree
-	//printInOrder(stores->root);
 	delEntries();//delete array of entries
 	
 	mySurface = new Surface(textureSize, textureSize, false);
 	dataArray = (*mySurface).getData();
-	//drawPopulationMap(dataArray, census2000, numItems2000, Color8u(0, 255, 0));
+	drawPopulationMap(dataArray, census2000, numItems2000, Color8u(0, 255, 0));
 	//drawPopulationMap(dataArray, census2010, numItems2010, Color8u(255, 0, 0));
 	drawMap(dataArray, stores->root);
 }
@@ -274,11 +260,12 @@ void HW04_hornehmApp::setup()
 void HW04_hornehmApp::mouseDown( MouseEvent event )
 {
 	if(event.isLeftDown()){
+		drawMap(dataArray, stores->root);
 		double x = (double)event.getX();
 		int y = event.getY();
 		y = reflectY(y);
 		Entry* tmp = stores->getNearest(x/((double)appWidth),((double)y)/((double)appHeight));
-		drawRectangle(dataArray, (int)(tmp->x*appWidth), (int)(tmp->y*appHeight), 5, 5, Color8u(0, 0, 255));
+		drawRectangle(dataArray, (int)(tmp->x*appWidth), (int)(tmp->y*appHeight), 3, 3, Color8u(0, 0, 255));
 		message = tmp->identifier;
 		showMessage = true;
 		
@@ -301,7 +288,7 @@ void HW04_hornehmApp::draw()
 	if(showMap){
 		gl::draw(map, getWindowBounds());
 	}
-	else{ //if(showMessage){
+	else{
 		gl::clear(Color(0, 0, 0));
 		gl::draw(*mySurface);
 		gl::color(Color8u(255, 255, 255));
@@ -314,10 +301,7 @@ void HW04_hornehmApp::draw()
 		textFont ->drawStringWrapped(str, boundsRect);
 		gl::color(Color8u(255, 255, 255));
 	}
-	//else{
-	//gl::clear(Color(0, 0, 0));
-	//gl::draw(*mySurface);
-	//}
+	
 }
 
 
