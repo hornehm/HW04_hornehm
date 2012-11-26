@@ -46,6 +46,9 @@ public:
 *much with it, but show where everything is.
 *
 *YOUTUBE LINK: http://youtu.be/53ahmW_Ich4
+*
+*Additional NOTES: For the on screen text, I used the same idea from my HW02. In order
+* to load an image, I implemented the code from HW04_harmonbc.
 */
 class HW04_hornehmApp : public AppBasic {
   public:

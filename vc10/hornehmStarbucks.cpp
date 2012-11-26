@@ -113,7 +113,7 @@ Entry* hornehmStarbucks::find(double x, double y, node* current, node* closest){
 	if(current==NULL){
 		return closest->data;
 	}
-
+9
 	double d = distance(x, y, current->data->x, current->data->y); //distance from current x,y values
 	double distanceClosest = distance(x,y, closest->data->x, closest->data->y);//distance of closest values
 	

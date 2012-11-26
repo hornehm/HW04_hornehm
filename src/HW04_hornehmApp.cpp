@@ -1,5 +1,7 @@
 #include "HW04_hornehmApp.h"
 /*
+*This method was implemented from class as well as HW04_Sonodabe
+*
 *Reads in Starbucks_2006.csv file into an array of entries. Returns pointer to the
 *	array of entries.
 *
@@ -48,6 +50,9 @@ Entry* HW04_hornehmApp::readInFile(){
 
 
 /*
+*
+*This method was implemented from class as well as HW04_Sonodabe
+*
 *Imports x, y, and population from the census files.
 *
 *@param filename - either "Census_2010.csv" or "Census_2000.csv".. or whatever else
@@ -173,6 +178,7 @@ void HW04_hornehmApp::delEntries(){
 
 /*
 *Draw rectangle for each starbucks location. I thought this was nice to see the points a little better.
+*
 *I used this same method from my first homework.
 *
 *@param pixels - dataArray
@@ -196,6 +202,9 @@ void HW04_hornehmApp::drawRectangle(uint8_t* pixels, int x, int y, int width, in
 /*
 *Draws the starbucks locations (They are brown. You can change the size of them
 * by changing the width and height of the triangle)
+*
+*I used the same idea that was presented in Brinkman's class for PrintInOrder. 
+* Instead, I decided to draw a map.
 *
 *@param pixels - dataArray
 *@param r - root node
